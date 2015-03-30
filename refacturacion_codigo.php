@@ -1,55 +1,47 @@
 <?php
 
 	/**
-	* Refacturacion del Codigo
+	* Re-facturación del Codigo
 	*
+	* @author Ing. Jonathan Olier (djom20)
 	*
-	* @author Ing. Jonathan Olier
 	*/
 
 	public function post_confim(){
 		$id 		= Input::get('service_id');
 		$servicio 	= Service::find($id);
+		$pushTmp	= array();
+		$error		= '0';
 
 		if($servicio != NULL){
-			if($servicio->status_id == '6'){
-				return Response::json(array('error' => '2'));
-			}
+			if($servicio->status_id != '6'){
+				if($servicio->driver_id == NULL && $servicio->status_id == '1'){
+					Driver::update(Input::get('driver_id'), array(
+						'available' => 0
+					));
 
-			if($servicio->driver_id == NULL && $servicio->status_id == '1'){
-				$servicio = Services::update($id, array(
-					'driver_id' => Input::get('driver_id'),
-					'status' 	=> '2'
-				));
+					$driverTmp = Driver::find(Input::get('driver_id'));
 
-				Driver::update(Input::get('driver_id'), array(
-					'available' => 0
-				));
+					$servicio = Service::update($id, array(
+						'driver_id' => Input::get('driver_id'),
+						'car_id' 	=> $driverTmp->car_id,
+						'status' 	=> '2'
+					));
 
-				$driverTmp = Driver::find(Input::get('driver_id'));
-				Service::update($id, array(
-					'car_id'=>$driverTmp->car_id
-				));
+					$pushTmp = Push::make();
 
-				$pushMessage 	= 'Tu servicio ha sido comfirmado!';
-				$servicio 		= Services::find($id);
-				$push 			= Push::make();
+					if($servicio->user->uuid != ''){
+						if($servicio->uer->type == '1'){
+							$pushTmp = array('func' => 'ios', 'sound' => 'honk.wav');
+						} else {
+							$pushTmp = array('func' => 'android2', 'sound' => 'default');
+						}
 
-				if($servicio->user->uuid == ''){
-					return Response::json(array('error' => '0'));
-				}
+						$result = $push->$pushTmp['func']($servicio->user->uuid, 'Tu servicio ha sido comfirmado!', 1, $pushTmp['sound'], 'Open', array('serviceId' => $servicio->id));
+					}
+				} else { $error = '1'; }
+			} else { $error = '2'; }
+		} else { $error = '3'; }
 
-				if($servicio->uer->type == '1'){
-					$result = $push->ios($servicio->user->uuid, $pushMessage, 1, 'honk.wav', 'Open', array('serviceId' => $servicio->id));
-				} else {
-					$result = $push->android2($servicio->user->uuid, $pushMessage, 1, 'default', 'Open', array('serviceId' => $servicio->id));
-				}
-
-				return Response::json(array('error' => '0'));
-			} else {
-				return Response::json(array('error' => '1'));
-			}
-		} else {
-			return Response::json(array('error' => '3'));
-		}
+		return Response::json(array('error' => $error));
 	}
