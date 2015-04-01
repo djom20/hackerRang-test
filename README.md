@@ -7,7 +7,8 @@ puede encontrar en el siguiente [aqui](https://www.hackerrank.com/challenges/cub
 y qué clases pertenecen a cual
 2. La responsabilidad de cada clase creada
 
-```Recibirá puntos extra si:
+Recibirá puntos extra si:
+--------
 
 1. El mecanismo usado para la entrada y salida de datos es Web (5 puntos)
 2. Usa git o SVN y la historia del programa muestra su progreso en el desarrollo, usando
