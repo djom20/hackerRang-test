@@ -19,3 +19,22 @@ funcionamiento del programa (10 puntos)
 
 El restultado puede ser visto en [AltiviaOT](http://test.altiviaot.com/hackerrang/).
 
+
+Para Testear la app
+--------
+
+Ejemplo de entrada
+
+Current or Test: 1
+N: 4
+M: 5
+UPDATE 2 2 2 4
+QUERY 1 1 1 3 3 3
+UPDATE 1 1 1 23
+QUERY 2 2 2 4 4 4
+QUERY 1 1 1 3 3 3
+2 4
+UPDATE 2 2 2 1
+QUERY 1 1 1 1 1 1
+QUERY 1 1 1 2 2 2
+QUERY 2 2 2 2 2 2
