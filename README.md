@@ -23,6 +23,14 @@ El restultado puede ser visto en [AltiviaOT](http://test.altiviaot.com/hackerran
 Para Testear la app
 --------
 
+Debera abrir la consola si desea ver los log del programa que el ayudara a dar una idea del paso a paso de la aplicacion.
+
+Ademas existen dos tipos de casos, el current que solo es para un
+solo caso, y esta test que es para multiples casos.
+
+Acontinuacion veremos un ejemplo de un solo caso, las entradas al sistema y las salidas.
+
+
 Ejemplo de entrada
 
 ```html
@@ -34,4 +42,12 @@ Ejemplo de entrada
 	6. UPDATE 1 1 1 23
 	7. QUERY 2 2 2 4 4 4
 	8. QUERY 1 1 1 3 3 3
+```	 
+
+Ejemplo de salida
+
+```html
+	1. 4
+	2. 4
+	3. 27
 ```	 

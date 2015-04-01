@@ -1,14 +1,15 @@
-	/**
-	* Cube Summation
-	* http://test.altiviaot.com/hackerrang/
-	*
-	* @author Ing. Jonathan Olier (djom20)
-	*
-	*/
+/**
+*
+* Cube Summation
+* http://test.altiviaot.com/hackerrang/
+*
+* @author Ing. Jonathan Olier (djom20)
+*
+*/
 
-	function processData(input) {
+function processData(input) {
     //Enter your code here
-    $solver.init('current');
+    $solver.init();
 }
 
 window.$solver = {
@@ -16,40 +17,45 @@ window.$solver = {
 	cases: 	0,
 	n: 	0,
 	m: 	0,
-	command: '',
 
-	init:function(type){
-		this.log('Declare Vars.');
+	init:function(){
 		this.log(this.matrix);
 
-		if(type == 'current'){
-			this.cases = 1;
-			if(this.validateInput(this.cases)){
-			    while(this.cases--) {
-			    	this.log('Case: ' + this.cases);
-			        this.process();
-			    }
+		var sw = prompt("Please enter 1 to Current or 2 to Test or 3 to Exit.");
+	    if(sw == 1){
+	    	this.current();
+	    } else if(sw == 2){
+	    	this.testing();
+	    } else if(sw == 3){
+	    	/* Nothing to Exit */
+	    	this.message('Exit. To try starting the program reload the page again.');
+	    }else{
+	    	this.message('The option is not valid. Please try again.');
+	    	this.init();
+	    }
+	},
+	current:function(){
+		this.cases = 1;
+	    while(this.cases--) {
+	    	this.log('Case: ' + this.cases);
+	        this.process();
+	    }
 
-			    this.log('Finish');
-		    } else {
-		    	this.init();
-		    }
-
-		} else if(type == 'test'){
-			this.testing();
-		}
+	    this.message('Finish');
 	},
 	process:function(){
 		var x,y,z,x0,y0,z0,value1,value2,val,total = 0;
-		var i 	= 5;
-		var pos = [0,1,2,3,4,5];
+		var i 		= 6;
+		var j 		= 4;
+		var pos 	= [0,1,2,3,4,5];
+		var command = null;
 
-		this.n = prompt("Please enter 1 number");
+		this.n = prompt("Please enter 1 number to N");
 		if(this.validateInput(this.n)){
 			this.log('N: ' + this.n);
 	    }
 
-	    this.m = prompt("Please enter other 1 number");
+	    this.m = prompt("Please enter other 1 number to M");
 		if(this.validateInput(this.m)){
 			this.log('M: ' + this.m);
 	    }
@@ -57,16 +63,39 @@ window.$solver = {
 	    this.initMatrix(0,101);
 
 	    while(this.m--){
-	    	this.command = prompt("Please enter method. Update or Sum?");
-	    	if(this.command.toLowerCase() == "update"){
-	    		this.update(0,0,0,0,0);
-	    	}else if(this.command.toLowerCase() == "sum"){
-	    		while(i >= 0){
+	    	command = prompt("Please enter method. U to Update or Q to Query.");
+
+	    	i 	= 6;
+			j 	= 4;
+	    	if(command.toLowerCase() == "u"){
+	    		this.log('Update');
+	    		while(j--){
+		    		pos[j] = prompt("Please enter 1 number at position " + j);
+					if(this.validateInput(pos[i])){
+						this.log('Value: ' + pos[i]);
+				    }
+	    		}
+
+	    		x	= pos[0];
+	    		x0	= pos[0];
+				y	= pos[1];
+				y0	= pos[1];
+				z	= pos[2];
+				z0	= pos[2];
+				val	= pos[3];
+
+				value1 	= this.sum(x,y,z)- this.sum(x0-1,y,z) - this.sum(x,y0-1,z) + this.sum(x0-1,y0-1,z);
+            	value2 	= this.sum(x,y,z0-1) - this.sum(x0-1,y,z0-1) - this.sum(x,y0-1,z0-1)  + this.sum(x0-1,y0-1,z0-1);
+            	total 	= val -(value1 - value2);
+
+            	this.update(this.n,x,y,z,total);
+	    	}else if(command.toLowerCase() == "q"){
+	    		this.log('Query Process');
+	    		while(i--){
 		    		pos[i] = prompt("Please enter 1 number at position " + i);
 					if(this.validateInput(pos[i])){
-						this.log('Pos: ' + pos[i]);
+						this.log('Value: ' + pos[i]);
 				    }
-				    i--;
 	    		}
 
 	    		x0	= pos[0];
@@ -76,14 +105,11 @@ window.$solver = {
 				z0	= pos[4];
 				z	= pos[5];
 
-	            value1 = this.sum(x,y,z) - this.sum(x0-1,y,z) 
-	                    - this.sum(x,y0-1,z) + this.sum(x0-1,y0-1,z);
-
-	            value2 = this.sum(x,y,z0-1) - this.sum(x0-1,y,z0-1)
-	                    - this.sum(x,y0-1,z0-1)  + this.sum(x0-1,y0-1,z0-1);
+	            value1 = this.sum(x,y,z) - this.sum(x0-1,y,z) - this.sum(x,y0-1,z) + this.sum(x0-1,y0-1,z);
+	            value2 = this.sum(x,y,z0-1) - this.sum(x0-1,y,z0-1) - this.sum(x,y0-1,z0-1)  + this.sum(x0-1,y0-1,z0-1);
 
 	            total = value1 - value2;
-	            this.log('Total: ' + total);
+	            this.message('Total: ' + total);
 	            this.log('Value1: ' + value1);
 	            this.log('Value2: ' + value2);
 	    	}
@@ -100,7 +126,7 @@ window.$solver = {
 			};
 		};
 
-		this.log(this.matrix);
+		// this.log(this.matrix);
 	},
 	validateInput:function(n){
 		if(n != ('' && null)){
@@ -109,17 +135,17 @@ window.$solver = {
 				if(n > 0){
 					return true;
 				} else {
-					this.log('La entrada debe ser mayor a cero.');
+					this.message('Entry must be greater than zero.');
 				}
 			}
 		}else{
-			this.log('La entrada no puede ser nula o vacia.');
+			this.message('The entry can not be null or empty.');
 		}
 
 		return false;
 	},
 	sum:function(x,y,z){
-		this.log('Sum');
+		// this.log('Query Process');
 		var y1,x1,sum=0;
 
 	    while (z>0){
@@ -128,32 +154,54 @@ window.$solver = {
 	            y1=y;
 	            while(y1>0){
 	                sum += this.matrix[x1][y1][z];
-	    			this.log(this.matrix[x1][y1][z]);
-	    			this.log('sum1: '+sum);
+	    			// this.log(this.matrix[x1][y1][z]);
+	    			// this.log('sum1: '+sum);
 
 	                y1 -= (y1 & -y1);
-	    			this.log('y1: '+y1);
+	    			// this.log('y1: '+y1);
 	            }
 	            x1 -= (x1 & -x1);
 	        }
 	        z -= (z & -z);
 	    }
-	    this.log('sumT: '+sum);
+	    // this.log('sumT: '+sum);
 
 	    return sum;
 	},
 	update:function(n,x,y,z,val){
-		this.log('Update');
+		// this.log('Update Process');
+		this.log('n: '+n);
+		this.log('x: '+x);
+		this.log('y: '+y);
+		this.log('z: '+z);
+		this.log('val: '+val);
+		var y1,x1 = 0;
+
+	    while(z <= n) {
+	        x1 = x;
+	        this.log('x1: '+x1);
+	        while(x1 <= n) {
+	            y1 = y;
+	            this.log('y1: '+y1);
+	            while(y1 <= n) {
+	                this.matrix[x1][y1][z] += val;
+	                this.log('update to x:'+x1+' y:'+y1+' z:'+z);
+	                y1 += (y1 & -y1);
+	            }
+	            x1 += (x1 & -x1);
+	        }
+	        z += (z & -z);
+	    }
 	},
 	testing:function(){
-		this.cases = prompt("Please enter number of test");
+		this.cases = prompt("Please enter number of test.");
 		if(this.validateTestInput(this.cases)){
 			while(this.cases--) {
-		    	this.log('Case: ' + this.cases);
+		    	this.log('Number Test: ' + this.cases);
 		        this.process();
 		    }
 	    } else {
-	    	this.init();
+	    	this.testing();
 	    }
 	},
 	validateTestInput:function(){
@@ -164,17 +212,21 @@ window.$solver = {
 					if(n <= 20){
 						return true;
 					} else {
-						this.log('La entrada debe ser menor a 50.');
+						this.message('Entry must be less than 50.');
 					}
 				} else {
-					this.log('La entrada debe ser mayor a uno.');
+					this.message('Entry must be greater than one.');
 				}
 			}
 		}else{
-			this.log('La entrada no puede ser nula o vacia.');
+			this.message('The entry can not be null or empty.');
 		}
 
 		return false;
+	},
+	message:function(input){
+		this.log(input);
+		alert(input);
 	},
 	log:function(input){
 		console.log(input);
