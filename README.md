@@ -15,3 +15,7 @@ Recibirá puntos extra si:
 commits con unidades de funcionalidad (5 puntos)
 3. Usa pruebas unitarias y/o de validación (acceptance) que demuestren el buen
 funcionamiento del programa (10 puntos)
+
+
+El restultado puede ser visto en [AltiviaOT](http://test.altiviaot.com/hackerrang/).
+
