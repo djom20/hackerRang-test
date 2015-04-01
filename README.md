@@ -25,16 +25,20 @@ Para Testear la app
 
 Ejemplo de entrada
 
-Current or Test: 1
-N: 4
-M: 5
-UPDATE 2 2 2 4
-QUERY 1 1 1 3 3 3
-UPDATE 1 1 1 23
-QUERY 2 2 2 4 4 4
-QUERY 1 1 1 3 3 3
-2 4
-UPDATE 2 2 2 1
-QUERY 1 1 1 1 1 1
-QUERY 1 1 1 2 2 2
-QUERY 2 2 2 2 2 2
+```html
+<ul>
+	<li>Current or Test: 1</li>
+	<li>N: 4</li>
+	<li>M: 5</li>
+	<li>UPDATE 2 2 2 4</li>
+	<li>QUERY 1 1 1 3 3 3</li>
+	<li>UPDATE 1 1 1 23</li>
+	<li>QUERY 2 2 2 4 4 4</li>
+	<li>QUERY 1 1 1 3 3 3</li>
+	<li>2 4</li>
+	<li>UPDATE 2 2 2 1</li>
+	<li>QUERY 1 1 1 1 1 1</li>
+	<li>QUERY 1 1 1 2 2 2</li>
+	<li>QUERY 2 2 2 2 2 2</li>
+</ul>
+```	 
