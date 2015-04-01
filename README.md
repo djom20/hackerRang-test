@@ -34,9 +34,4 @@ Ejemplo de entrada
 	6. UPDATE 1 1 1 23
 	7. QUERY 2 2 2 4 4 4
 	8. QUERY 1 1 1 3 3 3
-	9. 2 4
-	10. UPDATE 2 2 2 1
-	11. QUERY 1 1 1 1 1 1
-	12. QUERY 1 1 1 2 2 2
-	13. QUERY 2 2 2 2 2 2
 ```	 
