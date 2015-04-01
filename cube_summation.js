@@ -2,6 +2,7 @@
 *
 * Cube Summation
 * http://test.altiviaot.com/hackerrang/
+* https://github.com/djom20/hackerRang-test
 *
 * @author Ing. Jonathan Olier (djom20)
 *
